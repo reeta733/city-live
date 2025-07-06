@@ -25,9 +25,9 @@ app.use(express.static(path.resolve() + "/assets"));
 app.use(allRoutes);
 
 
-// app.get("*", (req, res) => {
-//   res.sendFile("index.html", { root: path.join(path.resolve(), 'dist') }  );
-// });
+app.get("*", (req, res) => {
+  res.sendFile("index.html", { root: path.join(path.resolve(), 'dist') }  );
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
