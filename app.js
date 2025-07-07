@@ -1,30 +1,38 @@
-
 import express from 'express';
 import allRoutes from './routes/AllRoutes.js';
+import cors from 'cors'
 
 import path from 'path';
 
-const app = express(); 
 
-// This code for deployment ---start---
-const root = path.join(path.resolve(), 'dist');
+const app = express();
+app.use(express.json())
+app.use(express.urlencoded({ extended : true }));
+
+app.use(cors());
+
+/* this code for deployment ---- start -----*/
+const root = path.join(path.resolve(), "dist");
 app.use(express.static(root));
-// This code for deployment ---end---
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-
-app.use(express.static(path.resolve() + "/assets"));
+/* this code for deployment ---- end -----*/
+// app.get("/demo", (req, res)=>{
+//     console.log("req.body-----",req.body)
+//     console.log("req.params-----",req.params)
+//     console.log("req.file-----",req.files)
+//     console.log("req.cookie-----",req.cookies)
+//     console.log("req.headers-----",req.headers)
+// })
 
 app.use(allRoutes);
 
+/* this code for deployment ---- start -----*/
+app.get(/(.*)/, (req, res)=>{
+    res.sendFile("index.html", {root});
+})
+/* this code for deployment ---- end -----*/
 
-app.get(/(.*)/, (req, res) => {
-  res.sendFile("index.html", { root: path.join(path.resolve(), 'dist') }  );
-});
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log("Server Running on port", port);
-});
+const port =process.env.PORT;
+app.listen(port, ()=>{
+    console.log("Server Running with port ", port);
+})
