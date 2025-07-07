@@ -1,11 +1,6 @@
-// chaurasiyareeta81
-// 8MW433uovcyKoWga
-
-// mongodb+srv://chaurasiyareeta81:<db_password>@cluster0.dczolwm.mongodb.net
 
 import express from 'express';
 import allRoutes from './routes/AllRoutes.js';
-import cors from 'cors';
 
 import path from 'path';
 
@@ -18,14 +13,14 @@ app.use(express.static(root));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
 
 app.use(express.static(path.resolve() + "/assets"));
 
 app.use(allRoutes);
 
 
-app.get("*", (req, res) => {
+app.get(/(.*)/, (req, res) => {
   res.sendFile("index.html", { root: path.join(path.resolve(), 'dist') }  );
 });
 
