@@ -3,11 +3,16 @@ import axios from "axios";
 import Table from "react-bootstrap/Table";
 
 const Home = () => {
-  let [allCity, setAllCity] = useState([]);
+  const [allCity, setAllCity] = useState([]);
+
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/city`).then((response) => {
-      setAllCity(response.data);
-    });
+    axios.get(`${import.meta.env.VITE_API_URL}/city`)
+      .then((response) => {
+        setAllCity(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching city data:", error);
+      });
   }, []);
 
   return (

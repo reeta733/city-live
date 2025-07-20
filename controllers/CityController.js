@@ -1,7 +1,11 @@
-import City from '../models/City.js'
-let getAllCity = async(req, res)=>{
-    let result = await City.find();
-    res.send(result);
-}
+import City from "../models/City.js";
 
-export {getAllCity}
+export const getAllCity = async (req, res) => {
+  try {
+    const cities = await City.find();
+    res.status(200).json(cities);
+  } catch (error) {
+    console.error("Error fetching cities:", error);
+    res.status(500).json({ error: "Failed to fetch cities" });
+  }
+};

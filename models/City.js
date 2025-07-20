@@ -1,9 +1,8 @@
-import mongoose from "../config/conn.js";
+import mongoose from "mongoose";
 
-let City = mongoose.model("city", mongoose.Schema({
-    id : String,
-    name : String,
-    state : String
-}, {collection : "city"}));
+const CitySchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  state: { type: String, required: true },
+});
 
-export default City;
+export default mongoose.model("City", CitySchema);
